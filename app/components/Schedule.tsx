@@ -1,65 +1,86 @@
-const rows = [
-  {
-    day: "Segunda",
-    short: "Seg",
-    open: "05:30",
-    close: "23:00",
-    note: "",
-  },
-  {
-    day: "Terça",
-    short: "Ter",
-    open: "05:30",
-    close: "23:00",
-    note: "",
-  },
-  {
-    day: "Quarta",
-    short: "Qua",
-    open: "05:30",
-    close: "23:00",
-    note: "",
-  },
-  {
-    day: "Quinta",
-    short: "Qui",
-    open: "05:30",
-    close: "23:00",
-    note: "",
-  },
-  {
-    day: "Sexta",
-    short: "Sex",
-    open: "05:30",
-    close: "23:00",
-    note: "",
-  },
-  {
-    day: "Sábado",
-    short: "Sáb",
-    open: "07:00",
-    close: "17:00",
-    note: "Aulas coletivas até 14h",
-  },
-  {
-    day: "Domingo",
-    short: "Dom",
-    open: "08:00",
-    close: "13:00",
-    note: "Somente musculação",
-  },
+import { getActivitiesSchedule, EvoActivitySchedule } from "@/app/lib/evo";
+
+const weekDayMap: Record<string, string> = {
+  Monday:    "Seg",
+  Tuesday:   "Ter",
+  Wednesday: "Qua",
+  Thursday:  "Qui",
+  Friday:    "Sex",
+  Saturday:  "Sáb",
+  Sunday:    "Dom",
+  // variantes em português
+  "Segunda":  "Seg",
+  "Terça":    "Ter",
+  "Quarta":   "Qua",
+  "Quinta":   "Qui",
+  "Sexta":    "Sex",
+  "Sábado":   "Sáb",
+  "Domingo":  "Dom",
+  // numérico (0=Dom, 1=Seg, ...)
+  "0": "Dom", "1": "Seg", "2": "Ter", "3": "Qua",
+  "4": "Qui", "5": "Sex", "6": "Sáb",
+};
+
+function formatDay(day: string | number): string {
+  return weekDayMap[String(day)] ?? String(day);
+}
+
+function formatTime(time: string): string {
+  // Garante formato hh:mm (remove segundos se vier hh:mm:ss)
+  return time?.slice(0, 5) ?? "";
+}
+
+// Fallback estático
+const fallbackRows = [
+  { day: "Segunda", short: "Seg", open: "05:00", close: "21:00", note: "" },
+  { day: "Terça",   short: "Ter", open: "05:00", close: "21:00", note: "" },
+  { day: "Quarta",  short: "Qua", open: "05:00", close: "21:00", note: "" },
+  { day: "Quinta",  short: "Qui", open: "05:00", close: "21:00", note: "" },
+  { day: "Sexta",   short: "Sex", open: "05:00", close: "21:00", note: "" },
+  { day: "Sábado",  short: "Sáb", open: "08:00", close: "12:00", note: "" },
+  { day: "Domingo", short: "Dom", open: "—",     close: "—",     note: "Fechado" },
 ];
 
-const aulas = [
-  { nome: "Spinning", horarios: "07h · 12h · 19h" },
-  { nome: "Funcional", horarios: "06h · 09h · 18h · 20h" },
-  { nome: "Muay Thai", horarios: "08h · 19h · 21h" },
-  { nome: "Jiu-Jitsu", horarios: "07h · 19h30 · 21h" },
-  { nome: "Yoga", horarios: "07h30 · 09h · 18h30" },
-  { nome: "Pilates", horarios: "09h · 10h · 18h · 19h" },
+const fallbackAulas = [
+  { nome: "CrossFit",         horarios: "06h · 09h · 18h · 20h" },
+  { nome: "Hyrox",            horarios: "07h · 19h" },
+  { nome: "Natação Infantil", horarios: "08h · 09h · 10h" },
+  { nome: "Natação Adulto",   horarios: "06h · 07h · 18h · 19h" },
+  { nome: "Hidroginástica",   horarios: "08h · 09h · 18h" },
+  { nome: "Pilates",          horarios: "07h · 09h · 18h · 19h" },
 ];
 
-export default function Schedule() {
+// Agrupa os horários da EVO por modalidade
+function groupByActivity(
+  schedules: EvoActivitySchedule[]
+): { nome: string; horarios: string }[] {
+  const map = new Map<string, string[]>();
+
+  for (const s of schedules) {
+    const name = s.name ?? "Atividade";
+    const time = formatTime(s.startTime);
+    if (!map.has(name)) map.set(name, []);
+    if (time) map.get(name)!.push(time);
+  }
+
+  return Array.from(map.entries()).map(([nome, times]) => ({
+    nome,
+    horarios: [...new Set(times)].join(" · "),
+  }));
+}
+
+export default async function Schedule() {
+  let aulas = fallbackAulas;
+
+  try {
+    const data = await getActivitiesSchedule();
+    if (data.length > 0) {
+      aulas = groupByActivity(data);
+    }
+  } catch (error) {
+    console.error("[Schedule] Usando fallback estático:", error);
+  }
+
   return (
     <section id="horarios" className="py-24 bg-[#1a1a1a]">
       <div className="max-w-7xl mx-auto px-6">
@@ -81,14 +102,14 @@ export default function Schedule() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Tabela de funcionamento */}
+          {/* Horários de funcionamento (estático) */}
           <div>
             <h3 className="text-white font-black uppercase tracking-widest text-sm mb-6 flex items-center gap-3">
               <span className="w-6 h-0.5 bg-[#F7941D]" />
               Academia
             </h3>
             <div className="border border-[#2a2a2a] overflow-hidden">
-              {rows.map((row, i) => (
+              {fallbackRows.map((row, i) => (
                 <div
                   key={row.day}
                   className={`flex items-center justify-between px-6 py-4 border-b border-[#2a2a2a] last:border-0 ${
@@ -105,7 +126,7 @@ export default function Schedule() {
                   </div>
                   <div className="text-right">
                     <span className="text-white font-bold text-sm">
-                      {row.open} – {row.close}
+                      {row.open !== "—" ? `${row.open} – ${row.close}` : "—"}
                     </span>
                     {row.note && (
                       <p className="text-gray-600 text-xs mt-0.5">{row.note}</p>
@@ -116,11 +137,11 @@ export default function Schedule() {
             </div>
           </div>
 
-          {/* Grade de aulas coletivas */}
+          {/* Aulas coletivas (dinâmico via EVO API) */}
           <div>
             <h3 className="text-white font-black uppercase tracking-widest text-sm mb-6 flex items-center gap-3">
               <span className="w-6 h-0.5 bg-[#F7941D]" />
-              Aulas Coletivas (Seg – Sáb)
+              Aulas Coletivas
             </h3>
             <div className="border border-[#2a2a2a] overflow-hidden">
               {aulas.map((aula, i) => (
@@ -138,11 +159,10 @@ export default function Schedule() {
               ))}
             </div>
 
-            {/* Aviso */}
             <div className="mt-6 border-l-2 border-[#F7941D] pl-4">
               <p className="text-gray-500 text-xs leading-relaxed">
-                Horários de aulas sujeitos a alteração. Confirme disponibilidade
-                pelo WhatsApp ou na recepção.
+                Horários sujeitos a alteração. Confirme disponibilidade pelo
+                WhatsApp ou na recepção.
               </p>
             </div>
           </div>

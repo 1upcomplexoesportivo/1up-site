@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
 
 const links = [
   { label: "Sobre", href: "#sobre" },
@@ -23,22 +22,29 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-[#111111]/95 backdrop-blur-md shadow-lg shadow-black/40"
-          : "bg-transparent"
+      className={`fixed top-0 left-0 right-0 z-50 bg-[#111111] transition-all duration-300 ${
+        scrolled ? "shadow-lg shadow-black/40" : ""
       }`}
     >
       <nav className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
-        <a href="#" className="relative w-36 h-12 shrink-0">
-          <Image
-            src="/logo.png.png"
+        <a href="#" className="shrink-0 flex items-center">
+          <img
+            src="/logo-dark.png"
             alt="1UP Complexo Esportivo"
-            fill
-            className="object-contain object-left"
-            priority
+            style={{ height: "50px", width: "auto", display: "block" }}
+            onError={(e) => {
+              e.currentTarget.style.display = "none";
+              const fallback = e.currentTarget.nextElementSibling as HTMLElement;
+              if (fallback) fallback.style.display = "block";
+            }}
           />
+          <span
+            style={{ display: "none" }}
+            className="text-2xl font-black text-white"
+          >
+            1<span className="text-[#F7941D]">UP</span>
+          </span>
         </a>
 
         {/* Links — desktop */}

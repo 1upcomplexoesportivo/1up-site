@@ -41,7 +41,7 @@ export default function Contact() {
               </div>
 
               <a
-                href="https://wa.me/5584999999999?text=Ol%C3%A1!%20Tenho%20interesse%20em%20conhecer%20a%201UP%20Complexo%20Esportivo."
+                href="https://wa.me/5584981827107?text=Ol%C3%A1!%20Tenho%20interesse%20em%20conhecer%20a%201UP%20Complexo%20Esportivo."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full bg-[#25D366] hover:bg-[#1db954] text-white font-black text-sm py-4 px-8 uppercase tracking-widest transition-colors flex items-center justify-center gap-3"
@@ -64,7 +64,7 @@ export default function Contact() {
                     </svg>
                   ),
                   label: "Endereço",
-                  value: "Rua Exemplo, 123\nNatal – RN, 59000-000",
+                  value: "R. Dr. Orlando de Azevedo, 1979\nCapim Macio, Natal – RN, 59082-050",
                 },
                 {
                   icon: (
@@ -73,7 +73,7 @@ export default function Contact() {
                     </svg>
                   ),
                   label: "Telefone",
-                  value: "(84) 99999-9999",
+                  value: "(84) 98182-7107",
                 },
                 {
                   icon: (
@@ -82,7 +82,7 @@ export default function Contact() {
                     </svg>
                   ),
                   label: "E-mail",
-                  value: "contato@1upsports.com.br",
+                  value: "contato@siga1up.com.br",
                 },
                 {
                   icon: (
@@ -91,7 +91,7 @@ export default function Contact() {
                     </svg>
                   ),
                   label: "Funcionamento",
-                  value: "Seg–Sex: 05h30–23h\nSáb: 07h–17h | Dom: 08h–13h",
+                  value: "Seg–Sex: 05h00–21h00\nSáb: 08h00–12h00 | Dom: Fechado",
                 },
               ].map((info) => (
                 <div
@@ -116,7 +116,7 @@ export default function Contact() {
           <div className="flex flex-col gap-4">
             <div className="border border-[#2a2a2a] overflow-hidden flex-1 min-h-80">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126126.1!2d-35.2551!3d-5.7945!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7b2ff000000000%3A0x0!2sNatal%2C%20RN!5e0!3m2!1spt-BR!2sbr!4v1234567890"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d589.9945705807577!2d-35.20229511301461!3d-5.856387001847729!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7b2ff1c8b4af819%3A0x1616fa5af85429fd!2s1UP%20Complexo%20Esportivo!5e0!3m2!1spt-BR!2sbr!4v1776198426389!5m2!1spt-BR!2sbr"
                 width="100%"
                 height="100%"
                 style={{ border: 0, minHeight: "400px", display: "block" }}

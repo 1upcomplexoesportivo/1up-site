@@ -1,4 +1,3 @@
-import Image from "next/image";
 
 const links = [
   { label: "Sobre", href: "#sobre" },
@@ -45,12 +44,11 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           {/* Logo + descrição */}
           <div>
-            <a href="#" className="relative inline-block w-36 h-12 mb-6">
-              <Image
-                src="/logo.png.png"
+            <a href="#" className="inline-block mb-6">
+              <img
+                src="/logo-dark.png"
                 alt="1UP Complexo Esportivo"
-                fill
-                className="object-contain object-left"
+                height="50"
               />
             </a>
             <p className="text-gray-500 text-sm leading-relaxed max-w-xs">
@@ -100,13 +98,13 @@ export default function Footer() {
               Contato
             </h4>
             <ul className="space-y-3 text-sm text-gray-500">
-              <li>(84) 99999-9999</li>
-              <li>contato@1upsports.com.br</li>
-              <li>Rua Exemplo, 123 — Natal/RN</li>
+              <li>(84) 98182-7107</li>
+              <li>contato@siga1up.com.br</li>
+              <li>R. Dr. Orlando de Azevedo, 1979 — Natal/RN</li>
             </ul>
 
             <a
-              href="https://wa.me/5584999999999"
+              href="https://wa.me/5584981827107"
               target="_blank"
               rel="noopener noreferrer"
               className="mt-6 inline-flex items-center gap-2 bg-[#F7941D] hover:bg-[#e0850f] text-black font-black text-xs py-3 px-5 uppercase tracking-widest transition-colors"

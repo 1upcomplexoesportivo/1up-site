@@ -7,15 +7,6 @@ export default function Hero() {
       {/* Fundo com gradiente diagonal */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#111111] via-[#1a1a1a] to-[#111111]" />
 
-      {/* Elemento geométrico laranja — canto direito */}
-      <div
-        className="absolute right-0 top-0 w-1/2 h-full opacity-10"
-        style={{
-          background:
-            "linear-gradient(135deg, transparent 40%, #F7941D 40%, #F7941D 60%, transparent 60%)",
-        }}
-      />
-
       {/* Barra laranja lateral */}
       <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#F7941D]" />
 
