@@ -80,7 +80,7 @@ export async function getMemberships(): Promise<EvoMembership[]> {
 
   const seen = new Set<number>();
   const combined = [...page1, ...page2, ...page3].filter((p: any) => {
-    const id = p?.idMembership;
+    const id = p?.idMembership ?? p?.serviceId;
     if (id == null || seen.has(id)) return false;
     seen.add(id);
     return true;

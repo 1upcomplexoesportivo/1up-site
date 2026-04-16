@@ -1,6 +1,7 @@
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Diferenciais from "./components/Diferenciais";
+import Gallery from "./components/Gallery";
 import Plans from "./components/Plans";
 import Schedule from "./components/Schedule";
 import Contact from "./components/Contact";
@@ -14,6 +15,7 @@ export default function Home() {
       <main>
         <Hero />
         <Diferenciais />
+        <Gallery />
         <Plans />
         <Schedule />
         <Contact />

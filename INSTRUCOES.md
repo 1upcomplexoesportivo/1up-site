@@ -1,23 +1,15 @@
-/senior-frontend
+Atue como um engenheiro frontend sênior especialista em UI/UX. Preciso de uma reforma visual completa no site 1UP Complexo Esportivo mantendo a identidade da marca (preto, laranja, branco).
 
-Atualize os cards de planos no arquivo app/components/Plans.tsx para exibir as atividades incluídas em cada plano. Use estas informações fixas como fallback enquanto a API do 1UP PLUS não retorna:
+PROBLEMAS URGENTES A CORRIGIR:
+1. No card destacado (1UP PLUS - laranja), o texto está ilegível pois letras laranjas somem no fundo laranja. Todos os textos dentro do card laranja devem ser PRETO ou BRANCO, nunca laranja.
+2. Os badges "RECORRENTE" e "ILIMITADO:" dentro do card laranja devem ter fundo preto com texto branco para contrastar.
 
-1. 1UP PLUS - ANUAL (RECORRENTE + RENOVAÇÃO AUTOMATICA)
-   - Badge: "MAIS VANTAJOSO"
-   - Tag: "Recorrente"
-   - Atividades: Ilimitado: 1UP RUN, 1UP VERAO, AULÃO, AULÃO BENEFICENTE, AULÃO DIA DOS PAIS, AULÃO FERIADO, CORE AND MACHINE, CROSSFIT, DOMINGUEIRA, ENDURANCE DAY, FUN FRIDAY, MURPH, NADO LIVRE, SUADEIRA, UP BARBELL, UP GYMNASTICS, UP MOBILITY, UP-X
-   - Valor: R$450/mês | R$5.400,00 em 12x
-   - Duração: 12 meses
+MELHORIAS GERAIS DE PROFISSIONALISMO:
+3. Adicione transições suaves globais no layout: page transitions com framer-motion (fade + slight slide up) ao navegar entre seções
+4. Adicione hover effects elegantes nos cards de planos: leve scale(1.02) + box-shadow dourado/laranja sutil
+5. Melhore a tipografia: garanta hierarquia clara com font-weights corretos
+6. Adicione scroll animations: elementos entram com fade-in + slide-up ao aparecer na viewport (use IntersectionObserver ou framer-motion whileInView)
+7. Botões com transition suave de 300ms no hover
+8. Garanta que em NENHUM lugar do site haja texto laranja sobre fundo laranja
 
-2. CROSSFIT ILIMITADO - ANUAL (RECORRENTE)
-   - Badge: "MAIS VANTAJOSO"
-   - Tag: "Recorrente"
-   - Valor: R$280/mês | R$3.360,00 em 12x
-   - Duração: 12 meses
-
-3. CROSSFIT 3x SEMANA ANUAL (RECORRENTE)
-   - Tag: "Recorrente"
-   - Valor: R$230/mês | R$2.760,00 em 12x
-   - Duração: 12 meses
-
-Quando a API retornar os dados do plano, use os dados da API. Caso contrário use os dados acima como fallback. Mostre as atividades em formato de lista compacta dentro do card.
+Instale framer-motion se necessário: npm install framer-motion

@@ -1,3 +1,7 @@
+"use client";
+
+import { motion } from "framer-motion";
+
 const items = [
   {
     icon: (
@@ -61,12 +65,27 @@ const items = [
   },
 ];
 
+const cardVariants = {
+  hidden: { opacity: 0, y: 32 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const, delay: i * 0.08 },
+  }),
+};
+
 export default function Diferenciais() {
   return (
     <section id="modalidades" className="py-24 bg-[#1a1a1a]">
       <div className="max-w-7xl mx-auto px-6">
         {/* Cabeçalho */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] as const }}
+          className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6"
+        >
           <div>
             <div className="flex items-center gap-3 mb-4">
               <div className="w-8 h-0.5 bg-[#F7941D]" />
@@ -83,14 +102,24 @@ export default function Diferenciais() {
             A 1UP é um complexo esportivo completo, pensado para atender do
             iniciante ao atleta de alto rendimento.
           </p>
-        </div>
+        </motion.div>
 
         {/* Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {items.map((item, i) => (
-            <div
+            <motion.div
               key={i}
-              className="group bg-[#111111] border border-[#2a2a2a] hover:border-[#F7941D] p-8 transition-all duration-300 relative overflow-hidden"
+              custom={i}
+              variants={cardVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-40px" }}
+              whileHover={{
+                scale: 1.02,
+                boxShadow: "0 0 24px rgba(247,148,29,0.15)",
+                transition: { duration: 0.25 },
+              }}
+              className="group bg-[#111111] border border-[#2a2a2a] hover:border-[#F7941D] p-8 transition-colors duration-300 relative overflow-hidden cursor-default"
             >
               {/* Número de fundo */}
               <span className="absolute top-4 right-4 text-7xl font-black text-white/[0.03] group-hover:text-[#F7941D]/10 transition-colors select-none">
@@ -110,7 +139,7 @@ export default function Diferenciais() {
 
               {/* Linha inferior hover */}
               <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#F7941D] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
