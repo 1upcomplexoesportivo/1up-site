@@ -45,3 +45,5 @@ next-env.d.ts
 
 # originais de fotos (pesadas, fora do bundle do site)
 /public/Fotos Estrutura 1UP/
+
+.vercel
