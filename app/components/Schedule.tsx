@@ -1,32 +1,6 @@
 import { getActivitiesSchedule, EvoActivitySchedule } from "@/app/lib/evo";
 
-const weekDayMap: Record<string, string> = {
-  Monday:    "Seg",
-  Tuesday:   "Ter",
-  Wednesday: "Qua",
-  Thursday:  "Qui",
-  Friday:    "Sex",
-  Saturday:  "Sáb",
-  Sunday:    "Dom",
-  // variantes em português
-  "Segunda":  "Seg",
-  "Terça":    "Ter",
-  "Quarta":   "Qua",
-  "Quinta":   "Qui",
-  "Sexta":    "Sex",
-  "Sábado":   "Sáb",
-  "Domingo":  "Dom",
-  // numérico (0=Dom, 1=Seg, ...)
-  "0": "Dom", "1": "Seg", "2": "Ter", "3": "Qua",
-  "4": "Qui", "5": "Sex", "6": "Sáb",
-};
-
-function formatDay(day: string | number): string {
-  return weekDayMap[String(day)] ?? String(day);
-}
-
 function formatTime(time: string): string {
-  // Garante formato hh:mm (remove segundos se vier hh:mm:ss)
   return time?.slice(0, 5) ?? "";
 }
 
@@ -43,14 +17,13 @@ const fallbackRows = [
 
 const fallbackAulas = [
   { nome: "CrossFit",         horarios: "06h · 09h · 18h · 20h" },
-  { nome: "Hyrox",            horarios: "07h · 19h" },
+  { nome: "HYROX",            horarios: "07h · 19h" },
   { nome: "Natação Infantil", horarios: "08h · 09h · 10h" },
   { nome: "Natação Adulto",   horarios: "06h · 07h · 18h · 19h" },
   { nome: "Hidroginástica",   horarios: "08h · 09h · 18h" },
   { nome: "Pilates",          horarios: "07h · 09h · 18h · 19h" },
 ];
 
-// Agrupa os horários da EVO por modalidade
 function groupByActivity(
   schedules: EvoActivitySchedule[]
 ): { nome: string; horarios: string }[] {
@@ -69,6 +42,56 @@ function groupByActivity(
   }));
 }
 
+function IconFor({ nome }: { nome: string }) {
+  const n = nome.toLowerCase();
+  const common = "w-4 h-4";
+  if (n.includes("cross")) {
+    return (
+      <svg className={common} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <path d="M4 8h2v8H4zM18 8h2v8h-2zM7 10h2v4H7zM15 10h2v4h-2zM10 11h4v2h-4z" />
+      </svg>
+    );
+  }
+  if (n.includes("hyrox") || n.includes("funcional")) {
+    return (
+      <svg className={common} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <path d="M8 21h8M12 17v4M6 3h12v4a6 6 0 01-12 0V3zM6 5H3v2a3 3 0 003 3M18 5h3v2a3 3 0 01-3 3" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    );
+  }
+  if (n.includes("nata")) {
+    return (
+      <svg className={common} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M2 16c1.5-1.5 3-1.5 4.5 0S9.5 17.5 11 16s3-1.5 4.5 0S18.5 17.5 20 16s2-1 2-1" />
+        <path d="M2 20c1.5-1.5 3-1.5 4.5 0S9.5 21.5 11 20s3-1.5 4.5 0S18.5 21.5 20 20s2-1 2-1" />
+        <circle cx="16" cy="7" r="2" />
+        <path d="M5 13l5-3 3 2 4-1" />
+      </svg>
+    );
+  }
+  if (n.includes("hidro")) {
+    return (
+      <svg className={common} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 3c4 5 6 8 6 11a6 6 0 01-12 0c0-3 2-6 6-11z" />
+      </svg>
+    );
+  }
+  if (n.includes("pilates")) {
+    return (
+      <svg className={common} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="5" r="2" />
+        <path d="M8 22l2-8 4 2 2 6M10 14l-2-4 4-3 4 3-2 4" />
+      </svg>
+    );
+  }
+  return (
+    <svg className={common} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 7v5l3 2" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 export default async function Schedule() {
   let aulas = fallbackAulas;
 
@@ -82,50 +105,58 @@ export default async function Schedule() {
   }
 
   return (
-    <section id="horarios" className="py-24 bg-[#1a1a1a]">
+    <section
+      id="horarios"
+      className="relative py-24 md:py-32 bg-[#0a0a0a] border-t border-[#171717]"
+    >
       <div className="max-w-7xl mx-auto px-6">
         {/* Cabeçalho */}
-        <div className="text-center mb-16">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="w-8 h-0.5 bg-[#F7941D]" />
-            <span className="text-[#F7941D] text-xs font-black tracking-[0.3em] uppercase">
-              Grade Horária
-            </span>
-            <div className="w-8 h-0.5 bg-[#F7941D]" />
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+          <div>
+            <div className="flex items-center gap-3 mb-5">
+              <span className="text-[#F7941D] text-[10px] font-black tracking-[0.35em] uppercase">
+                05
+              </span>
+              <div className="w-10 h-0.5 bg-[#F7941D]" />
+              <span className="text-[#F7941D] text-[10px] font-black tracking-[0.35em] uppercase">
+                Horários
+              </span>
+            </div>
+            <h2 className="font-display text-white text-5xl md:text-6xl lg:text-7xl leading-[0.88] tracking-tight">
+              ENCAIXE A 1UP
+              <br />
+              NA <span className="text-[#F7941D]">SUA ROTINA.</span>
+            </h2>
           </div>
-          <h2 className="text-4xl md:text-5xl font-black text-white">
-            HORÁRIOS DE <span className="text-[#F7941D]">FUNCIONAMENTO</span>
-          </h2>
-          <p className="text-gray-400 mt-4 text-sm">
-            Organize sua semana e encontre o melhor horário para treinar.
+          <p className="text-gray-400 text-sm max-w-sm leading-relaxed">
+            Horários da academia e da grade de aulas coletivas. Sujeitos a
+            ajustes — confirme com a recepção.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Horários de funcionamento (estático) */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
+          {/* Funcionamento */}
           <div>
-            <h3 className="text-white font-black uppercase tracking-widest text-sm mb-6 flex items-center gap-3">
+            <h3 className="font-display text-white text-2xl mb-6 flex items-center gap-3">
               <span className="w-6 h-0.5 bg-[#F7941D]" />
               Academia
             </h3>
-            <div className="border border-[#2a2a2a] overflow-hidden">
-              {fallbackRows.map((row, i) => (
+            <div className="border border-[#262626]">
+              {fallbackRows.map((row) => (
                 <div
                   key={row.day}
-                  className={`flex items-center justify-between px-6 py-4 border-b border-[#2a2a2a] last:border-0 ${
-                    i % 2 === 0 ? "bg-[#111111]" : "bg-[#1a1a1a]"
-                  }`}
+                  className="flex items-center justify-between px-5 md:px-6 py-4 border-b border-[#262626] last:border-0 hover:bg-[#171717] transition-colors"
                 >
                   <div className="flex items-center gap-4">
-                    <span className="text-[#F7941D] font-black text-xs uppercase tracking-wider w-8">
+                    <span className="text-[#F7941D] font-black text-[10px] uppercase tracking-[0.25em] w-8">
                       {row.short}
                     </span>
-                    <span className="text-gray-300 text-sm font-medium">
+                    <span className="text-gray-300 text-sm">
                       {row.day}
                     </span>
                   </div>
                   <div className="text-right">
-                    <span className="text-white font-bold text-sm">
+                    <span className="text-white font-bold text-sm tabular-nums">
                       {row.open !== "—" ? `${row.open} – ${row.close}` : "—"}
                     </span>
                     {row.note && (
@@ -137,24 +168,29 @@ export default async function Schedule() {
             </div>
           </div>
 
-          {/* Aulas coletivas (dinâmico via EVO API) */}
+          {/* Aulas coletivas */}
           <div>
-            <h3 className="text-white font-black uppercase tracking-widest text-sm mb-6 flex items-center gap-3">
+            <h3 className="font-display text-white text-2xl mb-6 flex items-center gap-3">
               <span className="w-6 h-0.5 bg-[#F7941D]" />
               Aulas Coletivas
             </h3>
-            <div className="border border-[#2a2a2a] overflow-hidden">
-              {aulas.map((aula, i) => (
+            <div className="border border-[#262626]">
+              {aulas.map((aula) => (
                 <div
                   key={aula.nome}
-                  className={`flex items-center justify-between px-6 py-4 border-b border-[#2a2a2a] last:border-0 ${
-                    i % 2 === 0 ? "bg-[#111111]" : "bg-[#1a1a1a]"
-                  }`}
+                  className="flex items-center justify-between px-5 md:px-6 py-4 border-b border-[#262626] last:border-0 hover:bg-[#171717] transition-colors gap-4"
                 >
-                  <span className="text-white font-bold text-sm uppercase tracking-wide">
-                    {aula.nome}
+                  <div className="flex items-center gap-3 min-w-0">
+                    <span className="text-[#F7941D] shrink-0">
+                      <IconFor nome={aula.nome} />
+                    </span>
+                    <span className="text-white font-bold text-sm uppercase tracking-wide truncate">
+                      {aula.nome}
+                    </span>
+                  </div>
+                  <span className="text-gray-400 text-sm tabular-nums text-right">
+                    {aula.horarios}
                   </span>
-                  <span className="text-gray-400 text-sm">{aula.horarios}</span>
                 </div>
               ))}
             </div>

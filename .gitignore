@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# claude
+.claude/
+
+# originais de fotos (pesadas, fora do bundle do site)
+/public/Fotos Estrutura 1UP/

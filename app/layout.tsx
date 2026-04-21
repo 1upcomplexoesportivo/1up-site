@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Geist, Bebas_Neue } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -7,10 +7,16 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
+const bebasNeue = Bebas_Neue({
+  variable: "--font-bebas-neue",
+  weight: "400",
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
   title: "1UP Complexo Esportivo | Natal/RN",
   description:
-    "Complexo esportivo completo em Natal/RN. Musculação, artes marciais, esportes coletivos e acompanhamento profissional. Eleve seu nível com a 1UP!",
+    "Complexo esportivo completo em Natal/RN. CrossFit, Natação, Pilates, Hidroginástica e HYROX. Agende uma aula experimental e viva a experiência 1UP.",
 };
 
 export default function RootLayout({
@@ -19,8 +25,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className={`${geistSans.variable} scroll-smooth`}>
-      <body className="bg-[#111111] text-white antialiased">{children}</body>
+    <html
+      lang="pt-BR"
+      className={`${geistSans.variable} ${bebasNeue.variable} scroll-smooth`}
+    >
+      <body className="bg-[#0a0a0a] text-white antialiased">{children}</body>
     </html>
   );
 }

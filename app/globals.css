@@ -3,11 +3,15 @@
 @theme inline {
   --color-brand: #F7941D;
   --color-brand-hover: #e0850f;
+  --color-brand-deep: #c8720e;
+  --color-ink: #0a0a0a;
+  --color-graphite: #171717;
+  --color-line: #262626;
   --color-dark: #111111;
   --color-dark-card: #1a1a1a;
   --color-dark-border: #2a2a2a;
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-bebas-neue);
 }
 
 html {
@@ -15,7 +19,39 @@ html {
 }
 
 body {
-  background-color: #111111;
+  background-color: #0a0a0a;
   color: #ffffff;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-bebas-neue), Impact, "Arial Narrow Bold", sans-serif;
+  letter-spacing: 0.01em;
+}
+
+@keyframes pulse-ring {
+  0%   { transform: scale(1);   opacity: 0.6; }
+  80%  { transform: scale(1.9); opacity: 0;   }
+  100% { transform: scale(1.9); opacity: 0;   }
+}
+
+.pulse-ring {
+  animation: pulse-ring 2.6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0);     }
+  to   { transform: translateX(-50%);  }
+}
+
+.marquee-track {
+  animation: marquee 42s linear infinite;
+}
+
+.noise-overlay {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.35 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 220px 220px;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  pointer-events: none;
 }
