@@ -25,7 +25,7 @@ const marcos = [
     label: "Hoje",
     title: "HYROX na 1UP",
     description:
-      "Entramos na era HYROX: treinos funcionais com metodologia da competição fitness mais popular do mundo.",
+      "Entramos na era HYROX — a competição fitness que mais cresce no mundo ganha estação própria no nosso box.",
   },
 ];
 
@@ -103,11 +103,23 @@ export default function Historia() {
               transition={{ duration: 0.7, ease: EASE, delay: 0.22 }}
               className="mt-8 text-gray-400 text-base leading-relaxed max-w-xl"
             >
-              Abrimos as portas em setembro de 2022 com uma ideia simples: reunir
-              em um só lugar tudo o que o aluno precisa para treinar bem. Quatro
-              anos depois, somos 2.000 m² de complexo esportivo em Natal/RN —
-              com piscina aquecida, box funcional e a mesma obsessão por
-              experiência.
+              A 1UP começou de uma família de empreendedores e do sonho de um
+              educador físico — com a ambição de juntar, em um mesmo endereço,
+              tudo que faltava em Natal: estrutura, variedade de modalidades e
+              atendimento que trata aluno por nome. Abrimos em setembro de 2022.
+              Hoje são 2.000 m² em Capim Macio, seis modalidades e uma
+              comunidade que cresce em volta do box e da piscina.
+            </motion.p>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.7, ease: EASE, delay: 0.32 }}
+              className="mt-4 text-gray-400 text-base leading-relaxed max-w-xl"
+            >
+              Porque aqui, crescer é mais do que um objetivo — é a nossa
+              essência.
             </motion.p>
 
             {/* Timeline */}
