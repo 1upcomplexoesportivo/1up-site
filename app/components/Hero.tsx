@@ -152,7 +152,7 @@ function StatsBar() {
   const stats = [
     { value: "2.000m²", label: "Complexo esportivo" },
     { value: "450m²", label: "Box CrossFit · HYROX" },
-    { value: "5", label: "Modalidades" },
+    { value: "6", label: "Modalidades" },
     { value: "2022", label: "Desde setembro" },
   ];
 
