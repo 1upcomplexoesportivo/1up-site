@@ -14,26 +14,26 @@ const MODALIDADES: Modalidade[] = [
   {
     title: "CrossFit",
     description:
-      "Box de 450 m² com equipamentos importados. Treinos funcionais que combinam força, resistência e condicionamento em uma única aula.",
+      "450 m² de infraestrutura de ponta e equipamentos importados para você viver o verdadeiro CrossFit. Aqui, o foco é a sua evolução: trabalhamos da força à coordenação, sempre com a supervisão de até 3 professores por turma. Um ambiente onde o acolhimento para quem está começando é tão prioridade quanto o desafio para quem já é mestre no WOD.",
     image: "/modalidades/crossfit.png",
   },
   {
     title: "HYROX",
     description:
-      "A competição fitness mais popular do mundo — estações completas no box funcional da 1UP, com metodologia oficial.",
+      "A competição fitness que mais cresce no mundo, agora em Natal. Estações completas dentro do nosso box — corrida, sled, wall balls, burpees — preparando você para o formato oficial.",
     image: "/modalidades/hyrox.png",
     tag: "Novo",
   },
   {
     title: "Natação Adulto",
     description:
-      "Piscina aquecida, salinizada e coberta. Técnica, condicionamento e bem-estar no seu ritmo — o ano inteiro.",
+      "Piscina aquecida, salinizada e coberta. Três níveis — iniciante, intermediário e avançado — para quem quer aprender, condicionar ou aperfeiçoar a nado.",
     image: "/modalidades/natacao-adulto.png",
   },
   {
     title: "Natação Infantil",
     description:
-      "Do bebê ao pré-adolescente. Água aquecida e salinizada, instrutores especializados em iniciação aquática — aula confortável em qualquer estação.",
+      "Cinco turmas do bebê ao pré-adolescente: Bebê, Super Bebê, Adaptação, Adaptação 1 e Intermediário. Água aquecida, instrutor especializado e arquibancada planejada para que os pais participem da jornada dos pequenos com total conforto, vibrando com a evolução em cada braçada.",
     image: "/modalidades/natacao-infantil.png",
   },
   {

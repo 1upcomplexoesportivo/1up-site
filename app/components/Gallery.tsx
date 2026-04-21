@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { waLink } from "@/app/lib/contact";
+import StructureDifferentiators from "./StructureDifferentiators";
 
 interface Photo {
   src: string;
@@ -31,13 +32,6 @@ const PHOTOS: Photo[] = [
     label: "Convivência",
     caption: "Lanchonete, loja fitness e barbearia no próprio complexo — tudo no mesmo lugar.",
   },
-];
-
-const metrics = [
-  { value: "Aquecida", label: "Piscina salinizada e coberta" },
-  { value: "Equipados", label: "Vestiários climatizados com amenities" },
-  { value: "Elétrica", label: "Vaga de carregamento exclusiva" },
-  { value: "Convívio", label: "Lanchonete, loja fitness e barbearia" },
 ];
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -77,14 +71,16 @@ export default function Gallery() {
               </span>
             </div>
             <h2 className="font-display text-white text-5xl md:text-6xl lg:text-7xl leading-[0.88] tracking-tight">
-              ESPAÇOS FEITOS
+              ESPAÇO, EQUIPE
               <br />
-              PARA <span className="text-[#F7941D]">VENCER.</span>
+              E DETALHES QUE FAZEM
+              <br />
+              O <span className="text-[#F7941D]">DIA DE TREINO.</span>
             </h2>
           </div>
           <p className="text-gray-400 text-sm max-w-sm leading-relaxed">
-            Cada ambiente foi pensado para extrair o seu melhor — dos primeiros
-            treinos ao alto rendimento.
+            Não é só o espaço. É a combinação de equipamento, professor e
+            localização que faz aluno voltar todo dia.
           </p>
         </motion.div>
 
@@ -134,35 +130,13 @@ export default function Gallery() {
           })}
         </div>
 
-        {/* Métricas */}
-        <motion.div
-          initial={{ opacity: 0, y: 28 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.7, ease: EASE, delay: 0.2 }}
-          className="mt-20 border-y border-[#262626]"
-        >
-          <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-[#262626]">
-            {metrics.map((m) => (
-              <div
-                key={m.label}
-                className="px-6 py-8 md:py-10 flex flex-col gap-1"
-              >
-                <span className="font-display text-white text-3xl md:text-5xl leading-none">
-                  {m.value}
-                </span>
-                <span className="text-gray-500 text-[10px] md:text-xs uppercase tracking-[0.22em] mt-2">
-                  {m.label}
-                </span>
-              </div>
-            ))}
-          </div>
-        </motion.div>
+        {/* Diferenciais — Além dos espaços */}
+        <StructureDifferentiators />
 
         {/* CTA inferior */}
         <div className="mt-12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <p className="text-gray-600 text-xs max-w-sm">
-            A foto real vale mais que mil palavras — venha conhecer pessoalmente.
+            Foto não substitui treino. Venha conhecer o complexo pessoalmente.
           </p>
           <a
             href={waLink("visita")}
