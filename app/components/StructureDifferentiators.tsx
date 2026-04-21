@@ -2,11 +2,13 @@
 
 import { motion } from "framer-motion";
 import {
+  BatteryCharging,
   Building2,
   Dumbbell,
   HeartHandshake,
   LayoutGrid,
   MapPin,
+  ShowerHead,
   Users,
   type LucideIcon,
 } from "lucide-react";
@@ -38,9 +40,9 @@ const DIFFERENTIATORS = [
   },
   {
     icon: MapPin,
-    title: "Capim Macio, fácil de chegar",
+    title: "No coração de Capim Macio",
     description:
-      "Endereço central em Natal, estacionamento próprio e vaga de carregamento elétrico exclusiva.",
+      "Zona sul de Natal, perto de onde você mora, trabalha e faz a rotina. Rota direta pelas principais vias da cidade.",
   },
   {
     icon: LayoutGrid,
@@ -53,6 +55,18 @@ const DIFFERENTIATORS = [
     title: "Tudo no mesmo complexo",
     description:
       "Lanchonete, loja fitness e barbearia no próprio endereço. Resolve treino e rotina em uma parada.",
+  },
+  {
+    icon: ShowerHead,
+    title: "Vestiários pensados pro pós-treino",
+    description:
+      "Ar condicionado, chuveiro aquecido, toalha individual, shampoo, condicionador e sabonete inclusos. Saia do treino pronto pro resto do dia.",
+  },
+  {
+    icon: BatteryCharging,
+    title: "Estacionamento privativo, carregador elétrico",
+    description:
+      "Vagas dentro do complexo e carregador elétrico exclusivo pra alunos. Zero preocupação com o carro enquanto treina.",
   },
 ] as const satisfies ReadonlyArray<Differentiator>;
 
@@ -77,7 +91,7 @@ export default function StructureDifferentiators() {
         </span>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-[#262626] border border-[#262626]">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-[#262626] border border-[#262626]">
         {DIFFERENTIATORS.map((item, i) => {
           const Icon = item.icon;
           return (
