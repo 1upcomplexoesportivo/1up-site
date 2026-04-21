@@ -14,9 +14,25 @@ const bebasNeue = Bebas_Neue({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.siga1up.com.br"),
   title: "1UP Complexo Esportivo | Natal/RN",
   description:
     "Complexo esportivo completo em Natal/RN. CrossFit, Natação, Pilates, Hidroginástica e HYROX. Agende uma aula experimental e viva a experiência 1UP.",
+  openGraph: {
+    title: "1UP Complexo Esportivo | Natal/RN",
+    description:
+      "CrossFit · HYROX · Natação · Hidroginástica · Pilates — 2.000m² de estrutura premium em Natal/RN. Agende uma aula experimental.",
+    url: "https://www.siga1up.com.br",
+    siteName: "1UP Complexo Esportivo",
+    locale: "pt_BR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "1UP Complexo Esportivo | Natal/RN",
+    description:
+      "CrossFit · HYROX · Natação · Hidroginástica · Pilates — 2.000m² em Natal/RN.",
+  },
 };
 
 export default function RootLayout({
