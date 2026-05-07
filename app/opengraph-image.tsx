@@ -1,10 +1,18 @@
 import { ImageResponse } from "next/og";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 
 export const alt = "1UP Complexo Esportivo — Natal/RN";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function OpengraphImage() {
+export default async function OpengraphImage() {
+  const logoData = await readFile(
+    join(process.cwd(), "public/logo-dark.png"),
+    "base64",
+  );
+  const logoSrc = `data:image/png;base64,${logoData}`;
+
   return new ImageResponse(
     (
       <div
@@ -39,43 +47,34 @@ export default function OpengraphImage() {
             display: "flex",
             alignItems: "center",
             gap: 16,
-            marginBottom: 40,
+            marginBottom: 48,
           }}
         >
           <div style={{ width: 52, height: 3, background: "#F7941D" }} />
           <div
             style={{
               color: "#F7941D",
-              fontSize: 20,
+              fontSize: 22,
               fontWeight: 900,
-              letterSpacing: "6px",
+              letterSpacing: "8px",
             }}
           >
-            COMPLEXO ESPORTIVO · NATAL / RN
+            NATAL / RN
           </div>
         </div>
 
-        <div
-          style={{
-            display: "flex",
-            fontSize: 260,
-            fontWeight: 900,
-            letterSpacing: "-12px",
-            lineHeight: 0.9,
-            color: "white",
-          }}
-        >
-          1<span style={{ color: "#F7941D" }}>UP</span>
+        <div style={{ display: "flex" }}>
+          <img src={logoSrc} height="320" alt="1UP Complexo Esportivo" />
         </div>
 
         <div
           style={{
-            fontSize: 34,
+            fontSize: 36,
             fontWeight: 400,
             color: "#d4d4d4",
-            marginTop: 32,
+            marginTop: 40,
             lineHeight: 1.25,
-            maxWidth: 1000,
+            maxWidth: 1040,
           }}
         >
           CrossFit · HYROX · Natação · Hidroginástica · Pilates
