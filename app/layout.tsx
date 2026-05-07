@@ -3,6 +3,7 @@ import { Geist, Bebas_Neue } from "next/font/google";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -81,6 +82,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const clarityId = process.env.NEXT_PUBLIC_CLARITY_ID;
+  const gaId = process.env.NEXT_PUBLIC_GA_ID;
 
   return (
     <html
@@ -97,6 +99,7 @@ export default function RootLayout({
           </Script>
         )}
       </body>
+      {gaId && <GoogleAnalytics gaId={gaId} />}
     </html>
   );
 }
